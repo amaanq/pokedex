@@ -1,0 +1,22 @@
+[package]
+name = "pokedex-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2024"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+libpokedex = { default-features = false, path = ".." }
+
+[[bin]]
+name = "parse_dex"
+path = "fuzz_targets/parse_dex.rs"
+test = false
+doc = false
+bench = false
+
+[workspace]
+members = [ "." ]

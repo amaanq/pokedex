@@ -1,0 +1,63 @@
+[package]
+name         = "libpokedex"
+authors      = [ "Amaan Qureshi <contact@amaanq.com>" ]
+version      = "0.1.0"
+edition      = "2024"
+license      = "MPL-2.0"
+rust-version = "1.97"
+description  = "Library for parsing and analyzing DEX files"
+readme       = "README.md"
+repository   = "https://github.com/amaanq/pokedex"
+categories   = [ "development-tools", "encoding", "parser-implementations" ]
+keywords     = [ "android", "apk", "bytecode", "dalvik", "dex" ]
+
+[lib]
+name = "pokedex"
+
+[features]
+containers = [ "dep:zip" ]
+default    = [ "containers" ]
+serde      = [ "dep:serde" ]
+
+[dependencies]
+hmac-sha256 = { default-features = false, version = "1.1.14" }
+serde       = { features = [ "derive" ], optional = true, version = "1.0.229" }
+thiserror   = "2.0.20"
+zip         = { default-features = false, features = [ "deflate" ], optional = true, version = "8.6.0" }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+cargo    = { level = "warn", priority = -1 }
+nursery  = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+
+restriction = { level = "warn", priority = -1 }
+
+blanket_clippy_restriction_lints = "allow"
+
+arbitrary_source_item_ordering = "allow"
+arithmetic_side_effects        = "allow"
+error_impl_error               = "allow"
+exhaustive_enums               = "allow"
+exhaustive_structs             = "allow"
+implicit_return                = "allow"
+indexing_slicing               = "allow"
+little_endian_bytes            = "allow"
+pub_with_shorthand             = "allow"
+question_mark_used             = "allow"
+ref_patterns                   = "allow"
+separated_literal_suffix       = "allow"
+single_call_fn                 = "allow"
+std_instead_of_alloc           = "allow"
+std_instead_of_core            = "allow"
+
+[profile.release]
+codegen-units = 1
+lto           = "thin"
+panic         = "unwind"
+strip         = true
+
+[lints]
+workspace = true
